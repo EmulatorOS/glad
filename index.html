@@ -1,678 +1,801 @@
-<html><head>
-	<meta charset="utf-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<title>Gladihoppers - Poki</title>
-	<script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script><script>
-	window.config = {
-		loader: 'unity',
-		debug: false,
-		maxRatio: 16 / 9,
-		minRatio: 9 / 16,
+<html>
 
-		title: 'Gladihoppers',
-		thumbnail: 'https:\/\/img.poki.com\/c4158282ee354873ed29da8852457eb5.png',
-		numScreenshots:  5 ,
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Gladihoppers - Poki</title>
+    <script src="https://s0.2mdn.net/instream/video/client.js" async="" type="text/javascript"></script>
+    <script>
+        window.config = {
+            loader: 'unity',
+            debug: false,
+            maxRatio: 16 / 9,
+            minRatio: 9 / 16,
 
-		unityVersion: '2019.3.13f1',
-		unityWebglBuildUrl: 'Build\/Gladihoppers.json',
+            title: 'Gladihoppers',
+            thumbnail: 'https:\/\/img.poki.com\/c4158282ee354873ed29da8852457eb5.png',
+            numScreenshots: 5,
 
-		fileSize:  23 ,
-		cachedDecompressedFileSizes: {
-			'Gladihoppers.data.unityweb':  17409938 ,
-			'Gladihoppers.wasm.code.unityweb':  6410659 ,
-			'Gladihoppers.wasm.framework.unityweb':  91463 ,
-		},
-	};
-	</script>
-<script src="https://game-cdn.poki.com/scripts/v2.313.0/poki-sdk-core-v2.313.0.js" type="text/javascript" crossorigin="anonymous"></script><style type="text/css">* {
-    margin: 0;
-    padding: 0;
-}
+            unityVersion: '2019.3.13f1',
+            unityWebglBuildUrl: 'Build\/Gladihoppers.json',
 
-html,
-body {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    background: #002B50;
-    font-family: Torus, Arial, Helvetica, sans-serif;
-    color: #fff;
-}
+            fileSize: 23,
+            cachedDecompressedFileSizes: {
+                'Gladihoppers.data.unityweb': 17409938,
+                'Gladihoppers.wasm.code.unityweb': 6410659,
+                'Gladihoppers.wasm.framework.unityweb': 91463,
+            },
+        };
+    </script>
+    <script src="https://game-cdn.poki.com/scripts/v2.313.0/poki-sdk-core-v2.313.0.js" type="text/javascript"
+        crossorigin="anonymous"></script>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
 
-#game-container {
-    position: absolute !important;
-    left: 50%;
-    top: 50%;
-    display: none;
-}
+        html,
+        body {
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            background: #002B50;
+            font-family: Torus, Arial, Helvetica, sans-serif;
+            color: #fff;
+        }
 
-#game,
-#game canvas {
-    width: 100%;
-    height: 100%;
-}
+        #game-container {
+            position: absolute !important;
+            left: 50%;
+            top: 50%;
+            display: none;
+        }
 
-#loader {
-    width: 100%;
-    height: 100%;
-}
+        #game,
+        #game canvas {
+            width: 100%;
+            height: 100%;
+        }
 
-/**
+        #loader {
+            width: 100%;
+            height: 100%;
+        }
+
+        /**
    * Slideshow
    */
 
-#slideshow {
-    width: 100%;
-    height: 100%;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-    display: flex;
-    user-select: none;
-}
+        #slideshow {
+            width: 100%;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            display: flex;
+            user-select: none;
+        }
 
-@font-face {
-    font-family: Torus;
-    src:
-        url('//a.poki.com/fonts/torus-bold-webfont.woff2') format('woff2'),
-        url('//a.poki.com/fonts/torus-bold-webfont.woff') format('woff');
-    font-style: bold;
-    font-weight: 700;
-}
+        @font-face {
+            font-family: Torus;
+            src:
+                url('//a.poki.com/fonts/torus-bold-webfont.woff2') format('woff2'),
+                url('//a.poki.com/fonts/torus-bold-webfont.woff') format('woff');
+            font-style: bold;
+            font-weight: 700;
+        }
 
-/**
+        /**
    * Slideshow - Top section
    */
-#progress-spinner{
-    margin-left: 0;
-    margin-top: 0;
-    left: 0px;
-    display:none;
-    transform: translate(100%, -50%);
-    width:10vh;
-}
-#progress-spinner >div{
-    width:2vh;
-    height:2vh;
-}
-#thumbnail {
-    box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.4);
-    /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.24); */
-    border-radius: 16.667%;
-}
+        #progress-spinner {
+            margin-left: 0;
+            margin-top: 0;
+            left: 0px;
+            display: none;
+            transform: translate(100%, -50%);
+            width: 10vh;
+        }
 
-#slideshow-top {
-    display: flex;
-    margin: 2.5vh 0;
-}
+        #progress-spinner>div {
+            width: 2vh;
+            height: 2vh;
+        }
 
-#slideshow-top-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-grow: 1;
-}
+        #thumbnail {
+            box-shadow: 0 1vh 2vh rgba(0, 0, 0, 0.4);
+            /* box-shadow: 0 6px 12px rgba(0, 0, 0, 0.24); */
+            border-radius: 16.667%;
+        }
 
-#game-title, #progress-comment {
-    display: flex;
-    flex-grow: 1;
-    align-items: center;
-    font-size:2vh;
-}
+        #slideshow-top {
+            display: flex;
+            margin: 2.5vh 0;
+        }
 
-#progress-container {
-    display: flex;
-    align-items: center;
-    flex-grow: 1;
-    transition: 0.2s ease-out all;
-}
+        #slideshow-top-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
 
-#progress-container.done {
-    opacity: 0;
-}
+        #game-title,
+        #progress-comment {
+            display: flex;
+            flex-grow: 1;
+            align-items: center;
+            font-size: 2vh;
+        }
 
-#progress-bar {
-    background: #fff;
-    width: 100%;
-    overflow: hidden;
-}
+        #progress-container {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            transition: 0.2s ease-out all;
+        }
 
-#progress-fill {
-    background: #3CF7DC;
-    height: 100%;
-    transition: 0.2s ease-out all;
-    animation-name: fillColor;
-    animation-duration: 3.5s;
-    animation-iteration-count: infinite;
-    animation-fill-mode: both;
-}
+        #progress-container.done {
+            opacity: 0;
+        }
 
-@keyframes fillColor {
-    0% {
-        background-color: #3CF7DC;
-    }
+        #progress-bar {
+            background: #fff;
+            width: 100%;
+            overflow: hidden;
+        }
 
-    25% {
-        background-color: #FFA9BE;
-    }
+        #progress-fill {
+            background: #3CF7DC;
+            height: 100%;
+            transition: 0.2s ease-out all;
+            animation-name: fillColor;
+            animation-duration: 3.5s;
+            animation-iteration-count: infinite;
+            animation-fill-mode: both;
+        }
 
-    50% {
-        background-color: #FFDC00;
-    }
+        @keyframes fillColor {
+            0% {
+                background-color: #3CF7DC;
+            }
 
-    75% {
-        background-color: #E0AEF5;
-    }
+            25% {
+                background-color: #FFA9BE;
+            }
 
-    100% {
-        background-color: #3CF7DC;
-    }
-}
+            50% {
+                background-color: #FFDC00;
+            }
 
-@media (orientation: portrait) {
-    #thumbnail {
-        margin-right: 2.4vh;
-    }
+            75% {
+                background-color: #E0AEF5;
+            }
 
-    #game-title h1 {
-        font-size: 2vh;
-    }
+            100% {
+                background-color: #3CF7DC;
+            }
+        }
 
-    #slideshow-top {
-        width: 70vw;
-    }
+        @media (orientation: portrait) {
+            #thumbnail {
+                margin-right: 2.4vh;
+            }
 
-    #progress-bar {
-        height: 1vh;
-        border-radius: 0.5vh;
-    }
+            #game-title h1 {
+                font-size: 2vh;
+            }
 
-    #progress-fill {
-        border-radius: 0.5vh;
-    }
+            #slideshow-top {
+                width: 70vw;
+            }
 
-    #thumbnail {
-        width: 5vh;
-        height: 5vh;
-    }
+            #progress-bar {
+                height: 1vh;
+                border-radius: 0.5vh;
+            }
 
-    #progress-amount {
-        font-size: 2vh;
-        margin-left: 1.5vh;
-        width: 3vh;
-    }
-}
+            #progress-fill {
+                border-radius: 0.5vh;
+            }
 
-@media (orientation: landscape) {
-    #thumbnail {
-        margin-right: 3vh;
-    }
+            #thumbnail {
+                width: 5vh;
+                height: 5vh;
+            }
 
-    #game-title h1 {
-        font-size: 3vh;
-    }
+            #progress-amount {
+                font-size: 2vh;
+                margin-left: 1.5vh;
+                width: 3vh;
+            }
+        }
 
-    #slideshow-top {
-        width: 50vw;
-    }
+        @media (orientation: landscape) {
+            #thumbnail {
+                margin-right: 3vh;
+            }
 
-    #progress-bar {
-        height: 1.2vh;
-        border-radius: 0.6vh;
-    }
+            #game-title h1 {
+                font-size: 3vh;
+            }
 
-    #progress-fill {
-        border-radius: 0.6vh;
-    }
+            #slideshow-top {
+                width: 50vw;
+            }
 
-    #thumbnail {
-        width: 7.5vh;
-        height: 7.5vh;
-    }
+            #progress-bar {
+                height: 1.2vh;
+                border-radius: 0.6vh;
+            }
 
-    #progress-amount {
-        font-size: 2.5vh;
-        margin-left: 1.875vh;
-        width: 3.75vh;
-    }
-}
+            #progress-fill {
+                border-radius: 0.6vh;
+            }
 
-/**
+            #thumbnail {
+                width: 7.5vh;
+                height: 7.5vh;
+            }
+
+            #progress-amount {
+                font-size: 2.5vh;
+                margin-left: 1.875vh;
+                width: 3.75vh;
+            }
+        }
+
+        /**
    * Slideshow - Images section
    */
 
-#slideshow-images {
-    width: 100vw;
-    display: flex;
-    justify-content: center;
-}
+        #slideshow-images {
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+        }
 
-#slideshow-images .image {
-    position: absolute;
-    box-shadow: 0 2.4vh 3.6vh rgba(0, 0, 0, 0.4);
-    transition-property: transform;
-    transition-timing-function: ease-in-out;
-    perspective: 1000px;
-    left: 0;
-    overflow: hidden;
-    /* border: 1vh solid; */
-}
+        #slideshow-images .image {
+            position: absolute;
+            box-shadow: 0 2.4vh 3.6vh rgba(0, 0, 0, 0.4);
+            transition-property: transform;
+            transition-timing-function: ease-in-out;
+            perspective: 1000px;
+            left: 0;
+            overflow: hidden;
+            /* border: 1vh solid; */
+        }
 
-#slideshow-images .image img {
-    width: 100%;
-    height: 100%;
-}
+        #slideshow-images .image img {
+            width: 100%;
+            height: 100%;
+        }
 
-#slideshow-images .image:nth-of-type(1n) {
-    border-color: #3BE8B0;
-}
+        #slideshow-images .image:nth-of-type(1n) {
+            border-color: #3BE8B0;
+        }
 
-#slideshow-images .image:nth-of-type(2n) {
-    border-color: #FF6D92;
-}
+        #slideshow-images .image:nth-of-type(2n) {
+            border-color: #FF6D92;
+        }
 
-#slideshow-images .image:nth-of-type(3n) {
-    border-color: #A177FF;
-}
+        #slideshow-images .image:nth-of-type(3n) {
+            border-color: #A177FF;
+        }
 
-#slideshow-images .image:nth-of-type(4n) {
-    border-color: #FFD200;
-}
+        #slideshow-images .image:nth-of-type(4n) {
+            border-color: #FFD200;
+        }
 
-#slideshow-images .left {
-    z-index: 2;
-}
-#slideshow-images .right {
-    z-index: 1;
-}
+        #slideshow-images .left {
+            z-index: 2;
+        }
 
-#slideshow-images .middle {
-    z-index: 3;
-}
+        #slideshow-images .right {
+            z-index: 1;
+        }
 
-#slideshow-images .left img,
-#slideshow-images .right img {
-    transform: scale(1.05);
-}
+        #slideshow-images .middle {
+            z-index: 3;
+        }
 
-#slideshow-images .left img,
-#slideshow-images .right img,
-#slideshow-images .fromLeft img,
-#slideshow-images .fromRight img {
-    filter: blur(1vh);
-}
+        #slideshow-images .left img,
+        #slideshow-images .right img {
+            transform: scale(1.05);
+        }
 
-#slideshow-images .inactive {
-    display: none;
-}
+        #slideshow-images .left img,
+        #slideshow-images .right img,
+        #slideshow-images .fromLeft img,
+        #slideshow-images .fromRight img {
+            filter: blur(1vh);
+        }
 
-#slideshow-images .inactive.fromLeft,
-#slideshow-images .inactive.fromRight {
-    display: block;
-}
+        #slideshow-images .inactive {
+            display: none;
+        }
 
-/**
+        #slideshow-images .inactive.fromLeft,
+        #slideshow-images .inactive.fromRight {
+            display: block;
+        }
+
+        /**
    * Slideshow - Navigation section
    */
 
-#slideshow-nav {
-    display: flex;
-    justify-content: center;
-    margin: 2.5vh 0;
-}
+        #slideshow-nav {
+            display: flex;
+            justify-content: center;
+            margin: 2.5vh 0;
+        }
 
-#slideshow-nav .bullet {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+        #slideshow-nav .bullet {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
 
-#slideshow-nav .bullet:after {
-    content: '';
-    background: #fff;
-    border-radius: 0.4vh;
-    width: 0.8vh;
-    height: 0.8vh;
-}
+        #slideshow-nav .bullet:after {
+            content: '';
+            background: #fff;
+            border-radius: 0.4vh;
+            width: 0.8vh;
+            height: 0.8vh;
+        }
 
-#slideshow-nav .bullet.active:after {
-    background: #009CFF;
-}
+        #slideshow-nav .bullet.active:after {
+            background: #009CFF;
+        }
 
-#slideshow-nav .bullet {
-    width: 2.5vh;
-    height: 2.5vh;
-}
+        #slideshow-nav .bullet {
+            width: 2.5vh;
+            height: 2.5vh;
+        }
 
-#slideshow-nav .bullet:after {
-    border-radius: 50%;
-    width: 50%;
-    height: 50%;
-}
+        #slideshow-nav .bullet:after {
+            border-radius: 50%;
+            width: 50%;
+            height: 50%;
+        }
 
-/**
+        /**
    * Pop-in animation
    */
 
-#slideshow-nav,
-#slideshow-images {
-    opacity: 0;
-    transition: 0.4s all ease-out;
-    transform: translateY(2vh);
-    perspective: 1000px;
-    transition-delay: 400ms;
-}
+        #slideshow-nav,
+        #slideshow-images {
+            opacity: 0;
+            transition: 0.4s all ease-out;
+            transform: translateY(2vh);
+            perspective: 1000px;
+            transition-delay: 400ms;
+        }
 
-#slideshow-nav {
-    transition-delay: 600ms;
-}
+        #slideshow-nav {
+            transition-delay: 600ms;
+        }
 
-#slideshow.active #slideshow-images,
-#slideshow.active #slideshow-nav {
-    opacity: 1;
-    transform: translateY(0);
-}
+        #slideshow.active #slideshow-images,
+        #slideshow.active #slideshow-nav {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-@keyframes bounceInDown {
+        @keyframes bounceInDown {
 
-    from,
-    60%,
-    75%,
-    90%,
-    to {
-        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
-    }
+            from,
+            60%,
+            75%,
+            90%,
+            to {
+                animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
+            }
 
-    0% {
-        transform: translate3d(0, -100vh, 0);
-    }
+            0% {
+                transform: translate3d(0, -100vh, 0);
+            }
 
-    40% {
-        transform: translate3d(0, 0.5vh, 0);
-    }
+            40% {
+                transform: translate3d(0, 0.5vh, 0);
+            }
 
-    65% {
-        transform: translate3d(0, -0.2vh, 0);
-    }
+            65% {
+                transform: translate3d(0, -0.2vh, 0);
+            }
 
-    80% {
-        transform: translate3d(0, 0.1vh, 0);
-    }
+            80% {
+                transform: translate3d(0, 0.1vh, 0);
+            }
 
-    to {
-        transform: translate3d(0, 0, 0);
-    }
-}
+            to {
+                transform: translate3d(0, 0, 0);
+            }
+        }
 
-#slideshow-top {
-    transform: translate3d(0, -20vh, 0);
-    opacity: 0;
-}
+        #slideshow-top {
+            transform: translate3d(0, -20vh, 0);
+            opacity: 0;
+        }
 
-#slideshow-top.active {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-    animation-name: bounceInDown;
-    animation-duration: 0.5s;
-}
+        #slideshow-top.active {
+            opacity: 1;
+            transform: translate3d(0, 0, 0);
+            animation-name: bounceInDown;
+            animation-duration: 0.5s;
+        }
 
-/**
+        /**
    * Loading dots
    */
-.spinner {
-    position: relative;
-    left: -9999px;
-    animation: dot-pulse 1.5s infinite linear;
-    animation-delay: .25s;
-    transform:translate(50vw, 50vh) translate(-130%, -130%);
-  }
+        .spinner {
+            position: relative;
+            left: -9999px;
+            animation: dot-pulse 1.5s infinite linear;
+            animation-delay: .25s;
+            transform: translate(50vw, 50vh) translate(-130%, -130%);
+        }
 
-  .spinner:before, .spinner:after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-  }
-  .spinner, .spinner:before, .spinner:after{
-    width: 10px;
-    height: 10px;
-    border-radius: 5px;
-  }
+        .spinner:before,
+        .spinner:after {
+            content: '';
+            display: inline-block;
+            position: absolute;
+            top: 0;
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+        }
 
-  .spinner:before {
-    animation: dot-pulse 1.5s infinite linear;
-    animation-delay: 0s;
-    left:-20px;
-  }
+        .spinner,
+        .spinner:before,
+        .spinner:after {
+            width: 10px;
+            height: 10px;
+            border-radius: 5px;
+        }
 
-  .spinner:after {
-    animation: dot-pulse 1.5s infinite linear;
-    animation-delay: .5s;
-    left:20px;
-  }
+        .spinner:before {
+            animation: dot-pulse 1.5s infinite linear;
+            animation-delay: 0s;
+            left: -20px;
+        }
 
-  @keyframes dot-pulse {
-    0% {
-      box-shadow: 9999px 0 0 -5px #FFF;
-    }
-    30% {
-      box-shadow: 9999px 0 0 2px #FFF;
-    }
-    60%,
-    100% {
-      box-shadow: 9999px 0 0 -5px #FFF;
-    }
-  }
-</style><script type="text/javascript" async="" src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script><script type="text/javascript" async="" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script><script type="text/javascript" async="" src="https://a.poki.com/prebid/prebid7.8.0.js"></script><script type="text/javascript" async="" src="https://c.amazon-adsystem.com/aax2/apstag.js"></script><meta http-equiv="origin-trial" content="A+cA2PUOfIOKAdSDJOW5CP9ZlxONy1yu+hqAq72zUtKw4rLdihqRp6Nui/jUyCyegr+BUtH+C+Elv0ufn05yBQEAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="A+zsdH3aNZT/bkjT8U/o5ACzyaeNYzTvtoVmwf/KOilfv39pxY2AIsOwhQJv+YnXp98i3TqrQibIVtMWs5UHjgoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><meta http-equiv="origin-trial" content="AxceVEhIegcDEHqLXFQ2+vPKqzCppoJYsRCZ/BdfVnbM/sUUF2BXV8lwNosyYjvoxnTh2FC8cOlAnA5uULr/zAUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ=="><script src="https://securepubads.g.doubleclick.net/gpt/pubads_impl_2022101701.js" async=""></script><style>
-.pokiSdkContainer {
-	overflow: hidden;
-	position: absolute;
-	left: 0;
-	top: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 1000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
+        .spinner:after {
+            animation: dot-pulse 1.5s infinite linear;
+            animation-delay: .5s;
+            left: 20px;
+        }
 
-.pokiSdkContainer.pokiSdkFixed {
-	position: fixed;
-}
+        @keyframes dot-pulse {
+            0% {
+                box-shadow: 9999px 0 0 -5px #FFF;
+            }
 
-.pokiSdkContainer.pokiSdkVisible {
-	display: block;
-}
+            30% {
+                box-shadow: 9999px 0 0 2px #FFF;
+            }
 
-.pokiSdkContainer.pokiSdkHidden,
-.pokiSdkSpinnerContainer.pokiSdkHidden {
-	display: none;
-}
+            60%,
+            100% {
+                box-shadow: 9999px 0 0 -5px #FFF;
+            }
+        }
+    </style>
+    <script type="text/javascript" async="" src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script>
+    <script type="text/javascript" async="" src="https://imasdk.googleapis.com/js/sdkloader/ima3.js"></script>
+    <script type="text/javascript" async="" src="https://a.poki.com/prebid/prebid7.8.0.js"></script>
+    <meta http-equiv="origin-trial"
+        content="A+cA2PUOfIOKAdSDJOW5CP9ZlxONy1yu+hqAq72zUtKw4rLdihqRp6Nui/jUyCyegr+BUtH+C+Elv0ufn05yBQEAAACFeyJvcmlnaW4iOiJodHRwczovL2RvdWJsZWNsaWNrLm5ldDo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
+    <meta http-equiv="origin-trial"
+        content="A+zsdH3aNZT/bkjT8U/o5ACzyaeNYzTvtoVmwf/KOilfv39pxY2AIsOwhQJv+YnXp98i3TqrQibIVtMWs5UHjgoAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXN5bmRpY2F0aW9uLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
+    <meta http-equiv="origin-trial"
+        content="AxceVEhIegcDEHqLXFQ2+vPKqzCppoJYsRCZ/BdfVnbM/sUUF2BXV8lwNosyYjvoxnTh2FC8cOlAnA5uULr/zAUAAACLeyJvcmlnaW4iOiJodHRwczovL2dvb2dsZXRhZ3NlcnZpY2VzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
+    <script src="https://securepubads.g.doubleclick.net/gpt/pubads_impl_2022101701.js" async=""></script>
+    <style>
+        .pokiSdkContainer {
+            overflow: hidden;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-.pokiSdkContainer.pokiSdkHidden,
-.pokiSdkSpinnerContainer {
-	pointer-events: none;
-}
+        .pokiSdkContainer.pokiSdkFixed {
+            position: fixed;
+        }
 
-.pokiSdkSpinnerContainer {
-	z-index: 10;
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: url('https://a.poki.com/images/thumb_anim_2x.gif') 50% 50% no-repeat;
-	user-select: none;
-}
+        .pokiSdkContainer.pokiSdkVisible {
+            display: block;
+        }
 
-.pokiSdkInsideContainer {
-	background: #000;
-	position: relative;
-	z-index: 1;
-	width: 100%;
-	height: 100%;
-	display: flex;
-	flex-direction: column;
+        .pokiSdkContainer.pokiSdkHidden,
+        .pokiSdkSpinnerContainer.pokiSdkHidden {
+            display: none;
+        }
 
-	opacity: 0;
-	-webkit-transition: opacity 0.5s ease-in-out;
-	-moz-transition: opacity 0.5s ease-in-out;
-	-ms-transition: opacity 0.5s ease-in-out;
-	-o-transition: opacity 0.5s ease-in-out;
-	transition: opacity 0.5s ease-in-out;
-}
+        .pokiSdkContainer.pokiSdkHidden,
+        .pokiSdkSpinnerContainer {
+            pointer-events: none;
+        }
 
-.pokiSdkContainer.pokiSdkVisible .pokiSdkInsideContainer {
-	opacity: 1;
-}
+        .pokiSdkSpinnerContainer {
+            z-index: 10;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://a.poki.com/images/thumb_anim_2x.gif') 50% 50% no-repeat;
+            user-select: none;
+        }
 
-.pokiSDKAdContainer, .pokiSdkVideoContainer {
-	position: absolute;
-	width: 100%;
-	height: 100%;
-}
+        .pokiSdkInsideContainer {
+            background: #000;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
 
-.pokiSdkStartAdButton {
-	position: absolute;
-	z-index: 9999;
-	top: 0;
+            opacity: 0;
+            -webkit-transition: opacity 0.5s ease-in-out;
+            -moz-transition: opacity 0.5s ease-in-out;
+            -ms-transition: opacity 0.5s ease-in-out;
+            -o-transition: opacity 0.5s ease-in-out;
+            transition: opacity 0.5s ease-in-out;
+        }
 
-	padding-top: 10%;
-	width: 100%;
-	height: 100%;
-	text-align: center;
-	color: #FFF;
+        .pokiSdkContainer.pokiSdkVisible .pokiSdkInsideContainer {
+            opacity: 1;
+        }
 
-	font: 700 15pt 'Arial', sans-serif;
-	font-weight: bold;
-	letter-spacing: 1px;
-	transition: 0.1s ease-in-out;
-	line-height: 1em;
-}
+        .pokiSDKAdContainer,
+        .pokiSdkVideoContainer {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
 
-.pokiSdkPauseButton {
-	cursor:pointer;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 1;
-}
+        .pokiSdkStartAdButton {
+            position: absolute;
+            z-index: 9999;
+            top: 0;
 
-.pokiSdkPauseButton:before {
-	content: '';
-	position: absolute;
-	width: 100px;
-	height: 100px;
-	display: block;
-	border: 2px solid #fff;
-	border-radius: 50%;
-	user-select: none;
-	background-color: rgba(0, 0, 0, 0.6);
-	transition: background-color 0.5s ease;
-	animation: 1s linear infinite pokiPulse;
-}
+            padding-top: 10%;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            color: #FFF;
 
-.pokiSdkPauseButton:after {
-	content: '';
-	position: absolute;
-	display: block;
-	box-sizing: border-box;
-	border-color: transparent transparent transparent #fff;
-	border-style: solid;
-	border-width: 26px 0 26px 40px;
-	pointer-events: none;
-	animation: 1s linear infinite pokiPulse;
-	left: 6px;
-}
-.pokiSdkPauseButtonBG {
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: block;
-    content: '';
-    background: rgba(0, 43, 80, 0.5);
-    width: 100%;
-    height: 100%;
-}
+            font: 700 15pt 'Arial', sans-serif;
+            font-weight: bold;
+            letter-spacing: 1px;
+            transition: 0.1s ease-in-out;
+            line-height: 1em;
+        }
 
-.pokiSdkPauseButtonBG:hover{
-	background: rgba(0, 43, 80, 0.7);
-}
+        .pokiSdkPauseButton {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 1;
+        }
 
-@keyframes pokiPulse {
-	0% {
-		transform: translate(-50%, -50%) scale(0.95);
-	}
-	70% {
-		transform: translate(-50%, -50%) scale(1.1);
-	}
-	100% {
-		transform: translate(-50%, -50%) scale(0.95);
-	}
-}
+        .pokiSdkPauseButton:before {
+            content: '';
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            display: block;
+            border: 2px solid #fff;
+            border-radius: 50%;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.6);
+            transition: background-color 0.5s ease;
+            animation: 1s linear infinite pokiPulse;
+        }
 
-.pokiSdkProgressContainer {
-	background: #B8C7DD;
-	width: 100%;
-	height: 5px;
-	position: absolute;
-	bottom: 0;
-	z-index: 9999;
-}
+        .pokiSdkPauseButton:after {
+            content: '';
+            position: absolute;
+            display: block;
+            box-sizing: border-box;
+            border-color: transparent transparent transparent #fff;
+            border-style: solid;
+            border-width: 26px 0 26px 40px;
+            pointer-events: none;
+            animation: 1s linear infinite pokiPulse;
+            left: 6px;
+        }
 
-.pokiSdkProgressBar {
-	position:relative;
-	bottom:0px;
-	background: #FFDC00;
-	height: 100%;
-	width: 0%;
-	transition: width 0.5s;
-	transition-timing-function: linear;
-}
+        .pokiSdkPauseButtonBG {
+            position: fixed;
+            top: 0;
+            left: 0;
+            display: block;
+            content: '';
+            background: rgba(0, 43, 80, 0.5);
+            width: 100%;
+            height: 100%;
+        }
 
-.pokiSdkProgressBar.pokiSdkVisible, .pokiSdkPauseButton.pokiSdkVisible, .pokiSdkStartAdButton.pokiSdkVisible {
-	display: block;
-	pointer-events: auto;
-}
+        .pokiSdkPauseButtonBG:hover {
+            background: rgba(0, 43, 80, 0.7);
+        }
 
-.pokiSdkProgressBar.pokiSdkHidden, .pokiSdkPauseButton.pokiSdkHidden, .pokiSdkStartAdButton.pokiSdkHidden {
-	display: none;
-	pointer-events: none;
-}
-</style><meta http-equiv="origin-trial" content="AzVDZQXqn8yacUyRQ+RDGadgISPnFQVyZItZ2AcXWiEHcBAUzfaj3S/mk2egxYyxI8IzHNGsB0k+hHwEn4uNIAkAAAB4eyJvcmlnaW4iOiJodHRwczovL2ltYXNkay5nb29nbGVhcGlzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1RoaXJkUGFydHkiOnRydWV9"><script src="//secure.cdn.fastclick.net/js/pubcid/latest/pubcid.min.js"></script><script>(function a(){try{(function b(){debugger;b()})()}catch(e){setTimeout(a,5e3)}})()</script></head>
+        @keyframes pokiPulse {
+            0% {
+                transform: translate(-50%, -50%) scale(0.95);
+            }
+
+            70% {
+                transform: translate(-50%, -50%) scale(1.1);
+            }
+
+            100% {
+                transform: translate(-50%, -50%) scale(0.95);
+            }
+        }
+
+        .pokiSdkProgressContainer {
+            background: #B8C7DD;
+            width: 100%;
+            height: 5px;
+            position: absolute;
+            bottom: 0;
+            z-index: 9999;
+        }
+
+        .pokiSdkProgressBar {
+            position: relative;
+            bottom: 0px;
+            background: #FFDC00;
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s;
+            transition-timing-function: linear;
+        }
+
+        .pokiSdkProgressBar.pokiSdkVisible,
+        .pokiSdkPauseButton.pokiSdkVisible,
+        .pokiSdkStartAdButton.pokiSdkVisible {
+            display: block;
+            pointer-events: auto;
+        }
+
+        .pokiSdkProgressBar.pokiSdkHidden,
+        .pokiSdkPauseButton.pokiSdkHidden,
+        .pokiSdkStartAdButton.pokiSdkHidden {
+            display: none;
+            pointer-events: none;
+        }
+    </style>
+    <meta http-equiv="origin-trial"
+        content="AzVDZQXqn8yacUyRQ+RDGadgISPnFQVyZItZ2AcXWiEHcBAUzfaj3S/mk2egxYyxI8IzHNGsB0k+hHwEn4uNIAkAAAB4eyJvcmlnaW4iOiJodHRwczovL2ltYXNkay5nb29nbGVhcGlzLmNvbTo0NDMiLCJmZWF0dXJlIjoiUHJpdmFjeVNhbmRib3hBZHNBUElzIiwiZXhwaXJ5IjoxNjY5NzY2Mzk5LCJpc1RoaXJkUGFydHkiOnRydWV9">
+    <script src="//secure.cdn.fastclick.net/js/pubcid/latest/pubcid.min.js"></script>
+    <script>(function a() { try { (function b() { debugger; b() })() } catch (e) { setTimeout(a, 5e3) } })()</script>
+</head>
+
 <body>
-	<script src="https://game-cdn.poki.com/loaders/v3/master-loader.js"></script><script src="https://game-cdn.poki.com/scripts/v2/poki-sdk.js"></script>
+    <script src="https://game-cdn.poki.com/loaders/v3/master-loader.js"></script>
+    <script src="https://game-cdn.poki.com/scripts/v2/poki-sdk.js"></script>
 
 
-<script src="https://game-cdn.poki.com/loaders/v3/unity.js"></script><div id="loader" style="display: none;"><div id="slideshow" class="active"><div id="slideshow-top" class="active"><img id="thumbnail" alt="Gladihoppers" title="Gladihoppers" src="https://img.poki.com/cdn-cgi/image/quality=78,width=40,height=40,fit=cover,g=0.5x0.5,f=auto/c4158282ee354873ed29da8852457eb5.png"><div id="slideshow-top-container"><div id="game-title">Gladihoppers</div><div id="progress-spinner" class="spinner" style="display: flex;"><div class="bounce0"></div><div class="bounce1"></div><div class="bounce2"></div></div><div id="progress-container" class="done"><div id="progress-bar"><div id="progress-fill" style="width: 100%;"></div></div><div id="progress-amount" style="width: 12vh; white-space: nowrap;">100% of 23MB</div></div><div id="progress-comment">Preparing game...</div></div></div><div id="slideshow-images"><div class="image inactive fromRight" fullimageloaded="true" data-idx="0"><img src="https://50d08d00-3945-11ea-b981-acde48001122.poki-gdn.com/cdn-cgi/image/f=auto,quality=78/f4a7e3fb-fdd2-4c31-86b0-860ffd9b7371/screenshots/1.jpg"></div><div class="image left" data-idx="1" fullimageloaded="true"><img src="https://50d08d00-3945-11ea-b981-acde48001122.poki-gdn.com/cdn-cgi/image/f=auto,quality=78/f4a7e3fb-fdd2-4c31-86b0-860ffd9b7371/screenshots/2.jpg"></div><div class="image middle" data-idx="2" fullimageloaded="true"><img src="https://50d08d00-3945-11ea-b981-acde48001122.poki-gdn.com/cdn-cgi/image/f=auto,quality=78/f4a7e3fb-fdd2-4c31-86b0-860ffd9b7371/screenshots/3.jpg"></div><div class="image right" data-idx="3" fullimageloaded="true"><img src="https://50d08d00-3945-11ea-b981-acde48001122.poki-gdn.com/cdn-cgi/image/f=auto,quality=78/f4a7e3fb-fdd2-4c31-86b0-860ffd9b7371/screenshots/4.jpg"></div><div class="image inactive fromRight" data-idx="4"><img src="/cdn-cgi/image/f=auto,quality=78/f4a7e3fb-fdd2-4c31-86b0-860ffd9b7371/screenshots/5-small.jpg"></div></div><div id="slideshow-nav"><div class="bullet" data-idx="0"></div><div class="bullet" data-idx="1"></div><div class="bullet active" data-idx="2"></div><div class="bullet" data-idx="3"></div><div class="bullet" data-idx="4"></div></div></div></div><div id="game-container" style="width: 835.556px; height: 470px; margin-left: -417.773px; margin-top: -235px; display: block;"><div id="game" style="padding: 0px; margin: 0px; border: 0px; position: relative; background: rgb(35, 31, 32);"><canvas id="#canvas" width="836" height="470" style="width: 100%; height: 100%; cursor: default;"></canvas></div></div><iframe style="display: none;"></iframe><script src="https://game-cdn.poki.com/loaders/v2/unity/static/UnityLoader.2019.2.js"></script><style>
-		#slideshow-images {
-			height: 59.765106382978715vh;
-		}
-		#slideshow-images .image {
-			transition-duration: 0.5s;
-			width: 60vw;
-			height: 59.765106382978715vh;
-		}
-		#slideshow-images .middle {
-			transform: translateX(20vw);
-		}
-		#slideshow-images .left {
-			transform: translateX(-34vw) scale(0.8);
-		}
-		#slideshow-images .right {
-			transform: translateX(74vw) scale(0.8);
-		}
-		#slideshow-images .inactive.fromLeft {
-			transform: translateX(-60vw) scale(0.4);
-		}
-		#slideshow-images .inactive.fromRight {
-			transform: translateX(130vw) scale(0.4);
-		}
-	</style><div class="pokiSdkContainer pokiSdkHidden pokiSdkFixed"><div class="pokiSdkInsideContainer"><div class="pokiSdkProgressContainer pokiSdkHidden"><div class="pokiSdkProgressBar" style="width: 0%;"></div></div><video id="pokiSDKVideoContainer" class="pokiSdkVideoContainer" playsinline="playsinline" muted="muted"></video><div id="pokiSDKAdContainer" class="pokiSDKAdContainer"><div style="position: absolute;"><div style="display: none;"><video title="Advertisement" webkit-playsinline="true" playsinline="true" style="background-color: rgb(0, 0, 0); position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></video><div style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></div></div><div style="display: none;"><video title="Advertisement" webkit-playsinline="true" playsinline="true" style="background-color: rgb(0, 0, 0); position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></video><div style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></div></div><iframe src="https://imasdk.googleapis.com/js/core/bridge3.540.0_en.html#goog_1783907155" allowfullscreen="" allow="autoplay;attribution-reporting" id="goog_1783907155" style="border: 0px; opacity: 0; margin: 0px; padding: 0px; position: relative; color-scheme: light;"></iframe><iframe sandbox="allow-scripts allow-same-origin" srcdoc="<script src=https://pagead2.googlesyndication.com/omsdk/releases/live/omweb-v1.js></script>
+    <script src="https://game-cdn.poki.com/loaders/v3/unity.js"></script>
+    <div id="loader" style="display: none;">
+        <div id="slideshow" class="active">
+            <div id="slideshow-top" class="active"><img id="thumbnail" alt="Gladihoppers" title="Gladihoppers"
+                    src="https://img.poki.com/cdn-cgi/image/quality=78,width=40,height=40,fit=cover,g=0.5x0.5,f=auto/c4158282ee354873ed29da8852457eb5.png">
+                <div id="slideshow-top-container">
+                    <div id="game-title">Gladihoppers</div>
+                    <div id="progress-spinner" class="spinner" style="display: flex;">
+                        <div class="bounce0"></div>
+                        <div class="bounce1"></div>
+                        <div class="bounce2"></div>
+                    </div>
+                    <div id="progress-container" class="done">
+                        <div id="progress-bar">
+                            <div id="progress-fill" style="width: 100%;"></div>
+                        </div>
+                        <div id="progress-amount" style="width: 12vh; white-space: nowrap;">100% of 23MB</div>
+                    </div>
+                    <div id="progress-comment">Preparing game...</div>
+                </div>
+            </div>
+            <div id="slideshow-images">
+                <div class="image inactive fromRight" fullimageloaded="true" data-idx="0"><img
+                        src="https://50d08d00-3945-11ea-b981-acde48001122.poki-gdn.com/cdn-cgi/image/f=auto,quality=78/f4a7e3fb-fdd2-4c31-86b0-860ffd9b7371/screenshots/1.jpg">
+                </div>
+                <div class="image left" data-idx="1" fullimageloaded="true"><img
+                        src="https://50d08d00-3945-11ea-b981-acde48001122.poki-gdn.com/cdn-cgi/image/f=auto,quality=78/f4a7e3fb-fdd2-4c31-86b0-860ffd9b7371/screenshots/2.jpg">
+                </div>
+                <div class="image middle" data-idx="2" fullimageloaded="true"><img
+                        src="https://50d08d00-3945-11ea-b981-acde48001122.poki-gdn.com/cdn-cgi/image/f=auto,quality=78/f4a7e3fb-fdd2-4c31-86b0-860ffd9b7371/screenshots/3.jpg">
+                </div>
+                <div class="image right" data-idx="3" fullimageloaded="true"><img
+                        src="https://50d08d00-3945-11ea-b981-acde48001122.poki-gdn.com/cdn-cgi/image/f=auto,quality=78/f4a7e3fb-fdd2-4c31-86b0-860ffd9b7371/screenshots/4.jpg">
+                </div>
+                <div class="image inactive fromRight" data-idx="4"><img
+                        src="/cdn-cgi/image/f=auto,quality=78/f4a7e3fb-fdd2-4c31-86b0-860ffd9b7371/screenshots/5-small.jpg">
+                </div>
+            </div>
+            <div id="slideshow-nav">
+                <div class="bullet" data-idx="0"></div>
+                <div class="bullet" data-idx="1"></div>
+                <div class="bullet active" data-idx="2"></div>
+                <div class="bullet" data-idx="3"></div>
+                <div class="bullet" data-idx="4"></div>
+            </div>
+        </div>
+    </div>
+    <div id="game-container"
+        style="width: 835.556px; height: 470px; margin-left: -417.773px; margin-top: -235px; display: block;">
+        <div id="game" style="padding: 0px; margin: 0px; border: 0px; position: relative; background: rgb(35, 31, 32);">
+            <canvas id="#canvas" width="836" height="470" style="width: 100%; height: 100%; cursor: default;"></canvas>
+        </div>
+    </div><iframe style="display: none;"></iframe>
+    <script src="https://game-cdn.poki.com/loaders/v2/unity/static/UnityLoader.2019.2.js"></script>
+    <style>
+        #slideshow-images {
+            height: 59.765106382978715vh;
+        }
+
+        #slideshow-images .image {
+            transition-duration: 0.5s;
+            width: 60vw;
+            height: 59.765106382978715vh;
+        }
+
+        #slideshow-images .middle {
+            transform: translateX(20vw);
+        }
+
+        #slideshow-images .left {
+            transform: translateX(-34vw) scale(0.8);
+        }
+
+        #slideshow-images .right {
+            transform: translateX(74vw) scale(0.8);
+        }
+
+        #slideshow-images .inactive.fromLeft {
+            transform: translateX(-60vw) scale(0.4);
+        }
+
+        #slideshow-images .inactive.fromRight {
+            transform: translateX(130vw) scale(0.4);
+        }
+    </style>
+    <div class="pokiSdkContainer pokiSdkHidden pokiSdkFixed">
+        <div class="pokiSdkInsideContainer">
+            <div class="pokiSdkProgressContainer pokiSdkHidden">
+                <div class="pokiSdkProgressBar" style="width: 0%;"></div>
+            </div><video id="pokiSDKVideoContainer" class="pokiSdkVideoContainer" playsinline="playsinline"
+                muted="muted"></video>
+            <div id="pokiSDKAdContainer" class="pokiSDKAdContainer">
+                <div style="position: absolute;">
+                    <div style="display: none;"><video title="Advertisement" webkit-playsinline="true"
+                            playsinline="true"
+                            style="background-color: rgb(0, 0, 0); position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></video>
+                        <div style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></div>
+                    </div>
+                    <div style="display: none;"><video title="Advertisement" webkit-playsinline="true"
+                            playsinline="true"
+                            style="background-color: rgb(0, 0, 0); position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></video>
+                        <div style="position: absolute; width: 100%; height: 100%; left: 0px; top: 0px;"></div>
+                    </div><iframe src="https://imasdk.googleapis.com/js/core/bridge3.540.0_en.html#goog_1783907155"
+                        allowfullscreen="" allow="autoplay;attribution-reporting" id="goog_1783907155"
+                        style="border: 0px; opacity: 0; margin: 0px; padding: 0px; position: relative; color-scheme: light;"></iframe><iframe
+                        sandbox="allow-scripts allow-same-origin" srcdoc="<script src=https://pagead2.googlesyndication.com/omsdk/releases/live/omweb-v1.js></script>
       <script>
         window.addEventListener('message', function(e) {
           if (e.data.type === 'innerBridgeIframeLoaded') {
@@ -682,4 +805,19 @@ body {
           }
         });
       </script>
-    " style="display: none;"></iframe></div></div></div><div class="pokiSdkSpinnerContainer"></div><div class="pokiSdkPauseButton pokiSdkHidden"><div class="pokiSdkPauseButtonBG"></div></div><div class="pokiSdkStartAdButton pokiSdkHidden">Tap anywhere to play ad</div></div><iframe name="google_video_inner_static_iframe" id="google_video_inner_static_iframe" src="about:blank" style="height: 0px; width: 0px; display:none"></iframe><script src="blob:https://50d08d00-3945-11ea-b981-acde48001122.poki-gdn.com/f6b647a8-5629-4110-93e3-364202a1fc78" id="eb6ab87c5a560f5e3742aa671e04342a"></script></body></html>
+    " style="display: none;"></iframe>
+                </div>
+            </div>
+        </div>
+        <div class="pokiSdkSpinnerContainer"></div>
+        <div class="pokiSdkPauseButton pokiSdkHidden">
+            <div class="pokiSdkPauseButtonBG"></div>
+        </div>
+        <div class="pokiSdkStartAdButton pokiSdkHidden">Tap anywhere to play ad</div>
+    </div><iframe name="google_video_inner_static_iframe" id="google_video_inner_static_iframe" src="about:blank"
+        style="height: 0px; width: 0px; display:none"></iframe>
+    <script src="blob:https://50d08d00-3945-11ea-b981-acde48001122.poki-gdn.com/f6b647a8-5629-4110-93e3-364202a1fc78"
+        id="eb6ab87c5a560f5e3742aa671e04342a"></script>
+</body>
+
+</html>
